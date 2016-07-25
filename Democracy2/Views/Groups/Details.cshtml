@@ -1,0 +1,73 @@
+﻿@model Democracy2.Models.GroupDetailsView
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Group</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Descripcion)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Groupid }, new  {@class = "btn btn-primary" })
+    @Html.ActionLink("Add Member", "AddMember", new { groupId = Model.Groupid }, new { @class = "btn btn-warning" })
+    @Html.ActionLink("Back to List", "Index", new  { },  new  {@class = "btn btn-success" })
+</p>
+<h3>Members</h3>
+@if (Model.Members.Count == 0)
+{
+    <h4> Not members added yet</h4>
+
+}
+else
+{
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => Model.Members[0].User.UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => Model.Members[0].User.FullName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => Model.Members[0].User.Photo)
+            </th>
+            <th></th>
+        </tr>
+
+        @for (int i = 0; i < Model.Members.Count; i++)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.Members[i].User.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.Members[i].User.FullName)
+                </td>
+                <!--view photo-->
+                <td>
+                    @if (!string.IsNullOrEmpty(Model.Members[i].User.Photo))
+                    {
+                        <img src="@Url.Content(Model.Members[i].User.Photo)" alt="Image" style="width:100px;height:100px;max-width: 100%; height: auto;" />
+                    }
+                </td>
+                <td>
+                    @Html.ActionLink("Delete", "DeleteMember", new { id = Model.Members[i].GroupMemberId }, new { @class = "btn btn-danger", onclick = "return confirm('Are you sure to delete this member?');" })
+                </td>
+            </tr>
+        }
+
+    </table>
+}

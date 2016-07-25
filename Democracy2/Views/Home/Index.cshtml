@@ -1,0 +1,50 @@
+﻿@{
+
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <div class="row">
+        <div class="col-md-5">
+            <h1>Democracy</h1>
+            <p class="lead">Voting system for a school.</p>
+            @*validation login*@
+            @if (!this.User.IsInRole("Admin") && !this.User.IsInRole("User"))
+            {
+                <p class="lead">To use the system, please log in with email and password,if is it your first time.</p>
+
+            }
+        </div>
+        <div class="col-md-7">
+            <img src="~/Content/Images/Democracy.jpg" style="width:500px;height:500px;max-width: 100%; height: auto;" />
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>My Settings</h2>
+        <p>
+            Change your personal data and password.
+        </p>
+        @Html.ActionLink("My Settings", "MySettings", "Users", new { }, new { @class = "btn btn-primary" })
+        <img src="~/Content/Images/Settings.ico" style="width:120px;height:120px;max-width: 100%; height: auto;" />
+
+    </div>
+
+    <div class="col-md-4">
+        <h2>My Votings</h2>
+        <p>
+            Vote for the different candidates.
+        </p>
+        @Html.ActionLink("My Votings", "MyVotings", "Votings", new { }, new { @class = "btn btn-warning" })
+        <img src="~/Content/Images/Votings.jpg" style="width:200px;height:200px;max-width: 100%; height: auto;" />
+    </div>
+
+    <div class="col-md-4">
+        <h2>Results</h2>
+        <p>See the votation results.</p>
+        @Html.ActionLink("Results", "Results", "Votings", new { }, new { @class = "btn btn-info" })
+        <img src="~/Content/Images/Results.jpg" style="width:200px;height:200px;max-width: 100%; height: auto;" />
+    </div>
+</div>
